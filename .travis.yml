@@ -1,11 +1,9 @@
 language: haskell
 
-before_install:
-  - ghc --version
-  - agda --version
-
 install:
   - apt-get install agda
 
 script:
+  - agda --version
   - make
+  
