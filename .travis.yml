@@ -1,7 +1,9 @@
 language: haskell
 
+sudo: required
+
 install:
-  - apt-get install agda
+  - sudo apt-get install agda
 
 script:
   - agda --version
