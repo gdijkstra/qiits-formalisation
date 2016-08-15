@@ -32,4 +32,21 @@ TYPE = record
         ; comp-assoc = λ h g f → refl
         }
 
+Fam : Precategory
+Fam = record
+        { obj = Σ Type₀ (λ A → A → Type₀)
+        ; hom = λ { (A , B) (C , D) → Σ (A → C) (λ f → (x : A) → B x → D (f x)) }
+        ; id = λ { (A , B) → (λ x → x) , (λ x z → z) }
+        ; comp = λ { (f , g) (h , i) → (λ z → f (h z)) , (λ x z → g (h x) (i x z)) }
+        ; comp-left-id = λ f → refl
+        ; comp-right-id = λ f → refl
+        ; comp-assoc = λ h g f → refl
+        }
+
 -- TODO: Category stuff
+
+comp-fun : {i j : ULevel} (𝓒 : Precategory {i} {j}) {x y z : / 𝓒 /} → 𝓒 [ y , z ] → 𝓒 [ x , y ] → 𝓒 [ x , z ]
+comp-fun = Precategory.comp
+
+syntax comp-fun 𝓒 g f = g ∘[ 𝓒 ] f
+

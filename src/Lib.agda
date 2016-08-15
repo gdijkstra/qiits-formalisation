@@ -22,12 +22,26 @@ infix 30 _==_
 data _==_ {i} {A : Type i} (a : A) : A → Type i where
   refl : a == a
 
+Id : {i : ULevel} (A : Type i) → A → A → Type i
+Id A x y = (x == y)
+
 ap : {i j : ULevel} {A : Type i} {B : Type j}
   (f : A → B)
   {x y : A}
   (p : x == y)
   → f x == f y
 ap f refl = refl
+
+sym : {i : ULevel} {A : Type i} {x y : A}
+  → x == y → y == x
+sym refl = refl
+
+transport :
+  ∀ {i j}
+  {A : Type i} (B : A → Type j)
+  {x y : A} (p : x == y)
+  → B x → B y
+transport B refl x = x
 
 uip : {i : ULevel} (A : Type i) → Type i
 uip A = (x y : A) (p q : x == y) → p == q
