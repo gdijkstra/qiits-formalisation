@@ -3,6 +3,7 @@ language: haskell
 sudo: required
 
 install:
+  - sudo apt-get -qq update
   - sudo apt-get install agda
 
 script:
