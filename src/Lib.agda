@@ -22,8 +22,8 @@ infix 30 _==_
 data _==_ {i} {A : Type i} (a : A) : A → Type i where
   refl : a == a
 
-Id : {i : ULevel} (A : Type i) → A → A → Type i
-Id A x y = (x == y)
+Eq : {i : ULevel} (A : Type i) → A → A → Type i
+Eq A x y = (x == y)
 
 ap : {i j : ULevel} {A : Type i} {B : Type j}
   (f : A → B)
@@ -62,3 +62,12 @@ open Σ public
 
 _×_ : {i j : ULevel} → (A : Type i) (B : Type j) → Type (i ⊔ j)
 A × B = Σ A (λ _ → B)
+
+data Unit {i : ULevel} : Type i where
+  tt : Unit
+
+data Empty {i : ULevel} : Type i where
+
+data _+_ {i j : ULevel} (A : Type i) (B : Type j) : Type (i ⊔ j) where
+  inl : A → A + B
+  inr : B → A + B
