@@ -1,9 +1,9 @@
 {-# OPTIONS --without-K #-}
 
-module Category.AKS.Functor where
+module Category.Untruncated.Functor where
 
 open import Lib
-open import Category.AKS.Core
+open import Category.Untruncated.Core
 
 record Functor {i j k l} (𝓒 : Precategory {i} {j}) (𝓓 : Precategory {k} {l}) : Type (i ⊔ j ⊔ k ⊔ l) where
   field
@@ -20,3 +20,22 @@ F ₀ X = Functor.obj F X
 
 _₁_ : {i j k l : ULevel} {𝓒 : Precategory {i} {j} } {𝓓 : Precategory {k} {l}} → (F : Functor 𝓒 𝓓) {X Y : / 𝓒 /} → 𝓒 [ X , Y ] → 𝓓 [ F ₀ X , F ₀ Y ]
 F ₁ f = Functor.hom F f
+
+_-id_ : {i j k l : ULevel} {𝓒 : Precategory {i} {j} } {𝓓 : Precategory {k} {l}} → (F : Functor 𝓒 𝓓) → (X : / 𝓒 /) → (F ₁ (Id 𝓒 X)) == Id 𝓓 (F ₀ X)
+F -id X = Functor.id F
+
+_-∘ : {i j k l : ULevel} {𝓒 : Precategory {i} {j} } {𝓓 : Precategory {k} {l}} → (F : Functor 𝓒 𝓓)
+  → {Y Z : / 𝓒 /} (g : 𝓒 [ Y , Z ])
+  → {X : / 𝓒 /}   (f : 𝓒 [ X , Y ])
+  → (F ₁ (g ∘[ 𝓒 ] f)) == ((F ₁ g) ∘[ 𝓓 ] (F ₁ f))
+(F -∘) g f = Functor.comp F g f
+
+_∘-func_ :
+  {i j k l m n : ULevel}
+  {𝓒 : Precategory {i} {j}}
+  {𝓓 : Precategory {k} {l}}
+  {𝓔 : Precategory {m} {n}}
+  → 𝓓 ⇒ 𝓔
+  → 𝓒 ⇒ 𝓓
+  → 𝓒 ⇒ 𝓔
+G ∘-func F = admit _

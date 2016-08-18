@@ -27,7 +27,19 @@ comp-fun = Precategory.comp
 
 syntax comp-fun 𝓒 g f = g ∘[ 𝓒 ] f
 
-𝟙 : {i j : ULevel} (𝓒 : Precategory {i} {j}) (x : / 𝓒 /) → 𝓒 [ x , x ]
-𝟙 𝓒 x = Precategory.id 𝓒 x
+Id : {i j : ULevel} (𝓒 : Precategory {i} {j}) (x : / 𝓒 /) → 𝓒 [ x , x ]
+Id 𝓒 x = Precategory.id 𝓒 x
+
+𝟙 : {i j : ULevel} → Precategory {i} {j}
+𝟙 {i} {j} = record
+      { obj = Unit
+      ; hom = λ x y → Unit
+      ; hom-set = admit _
+      ; id = λ _ → tt
+      ; comp = λ _ _ → tt
+      ; comp-left-id = λ { tt → refl }
+      ; comp-right-id = λ { tt → refl }
+      ; comp-assoc = λ h g f → refl
+      }
 
 -- TODO: Category stuff
