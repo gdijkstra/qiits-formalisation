@@ -47,10 +47,10 @@ TYPE-dephom = record
 
 Fam-fam : FamStructure Fam
 Fam-fam = record
-            { fam = λ { (A , B) → Σ (A → Type₀) (λ V → (x : A) → B x → V x → Type₀) }
-            ; total = λ { (A , B) (V , W) → (Σ A V) , (λ { (x , z) → Σ (B x) (λ y → W x y z) }) }
-            ; proj = λ { (A , B) (V , W) → (λ { (x , y) → x }) , (λ { (x , y) (z , w) → z }) }
-            ; preimage = λ { (A , B) (C , D) (p , q) → (λ a → Σ C (λ c → p c == a)) , (λ { x y (z , z') → Σ (D  z) (λ w → q z w == transport B (sym z') y ) } ) }
+            { fam = λ { (X , P) → Σ (X → Type₀) (λ V → (x : X) → P x → V x → Type₀) }
+            ; total = λ { (X , P) (V , W) → (Σ X V) , (λ { (x , z) → Σ (P x) (λ y → W x y z) }) }
+            ; proj = λ { (X , P) (V , W) → (λ { (x , y) → x }) , (λ { (x , y) (z , w) → z }) }
+            ; preimage = λ { (X , P) (C , D) (p , q) → (λ a → Σ C (λ c → p c == a)) , (λ { x y (z , z') → Σ (D  z) (λ w → q z w == transport P (sym z') y ) } ) }
             ; fam-correct₀ = admit _
             ; fam-correct₁ = admit _
             }
@@ -59,5 +59,5 @@ Fam-dephom : DepHomStructure Fam Fam-fam
 Fam-dephom = record
                { DepHom = λ { (X , P) (V , W) → Σ ((x : X) → V x) (λ f → (x : X) → (y : P x) → W x y (f x)) }
                ; graph = λ { (X , P) (V , W) (f , g) → ((λ x → x , f x) , (λ x y → y , (g x y))) , refl}
-               ; snd' = λ { (X , P) (V , W) ((s , t) , s₀) → admit _ }
+               ; snd' = λ { (X , P) (V , W) ((s , t) , s₀) → {!!} }
                }
