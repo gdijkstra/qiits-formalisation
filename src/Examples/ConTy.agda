@@ -39,5 +39,5 @@ module _ (𝓟 : ConTyMotives) (𝓜 : ConTyMethods 𝓟) where
   ind-Ty : (Γ : Con) (A : Ty Γ) → Q Γ (ind-Con Γ) A
 
   ind-Con nil = m-nil
-  ind-Con (snoc Γ x) = m-snoc Γ (ind-Con Γ) x (ind-Ty Γ x)
+  ind-Con (snoc Γ A) = m-snoc Γ (ind-Con Γ) A (ind-Ty Γ A)
   ind-Ty Γ (Π .Γ A B) = m-Π Γ (ind-Con Γ) A (ind-Ty Γ A) B (ind-Ty (snoc Γ A) B)
